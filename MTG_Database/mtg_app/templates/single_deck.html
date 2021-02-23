@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<a href="/">Homepage</a>
+	<h1>Deck:{{deck.name}}</h1>
+	{% for card in cards %}
+		<a href="/card/{{card.pk}}"><img src={{card.img_small_url}}></a>
+	{% endfor %}
+</body>
+</html>

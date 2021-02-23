@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Results</title>
+</head>
+<body>
+	<h1>Welcome {{request.session.email}}</h1>
+	{%if request.session.email%}
+		<a href="/decks">Decks</a>
+		<a href="/logout">Logout</a>
+	{% else %}
+		<a href="/login">Login</a>
+	{% endif%}
+	<a href="/">Homepage</a>
+	{% for card in cards %}
+		<a href="/card/{{card.pk}}">
+			<img src={{card.fields.img_small_url}}>
+		</a>
+	{% endfor %}
+
+</body>
+</html>

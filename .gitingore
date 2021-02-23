@@ -1,0 +1,6 @@
+.sublime/
+__pycache__/
+py3env/
+*.pyc
+newmtgdatabase.json
+settings.py

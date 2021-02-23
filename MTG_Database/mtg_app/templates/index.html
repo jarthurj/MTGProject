@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html>
+<head>
+	{% load static %}
+	<title>MTG Card Search</title>
+</head>
+<body>
+	<h1>Welcome {{request.session.email}}</h1>
+	{%if request.session.email%}
+		<a href="/decks">Decks</a>
+		<a href="/logout">Logout</a>
+	{% else %}
+		<a href="/login">Login</a>
+	{% endif%}
+	<h1>Card Search</h1>
+
+	<form action='/search' method='post'>
+		{% csrf_token %}
+		<p>Text Search:<input type='text' name='text_search'></p>
+		<input type="checkbox" class='color_check_box' name='colors' value="B">
+		<label for='black_check'>Black</label>
+
+		<input type="checkbox" class='color_check_box' name='colors' value="G">
+		<label for='green_check'>Green</label>
+
+		<input type="checkbox" class='color_check_box' name='colors' value="R">
+		<label for='red_check'>Red</label>
+
+		<input type="checkbox" class='color_check_box' name='colors' value="U">
+		<label for='blue_check'>Blue</label>
+
+		<input type="checkbox" class='color_check_box' name='colors' value="W">
+		<label for='white_check'>White</label>
+
+		<label for='types'>Card Types</label>
+		<select name="types" id='types'>
+			<option value=""></option>
+			<option value='Artifact'>Artifact</option>
+			<option value='Conspiracy'>Conspiracy</option>
+			<option value='Creature'>Creature</option>
+			<option value='Enchantment'>Enchantment</option>
+			<option value='Instant'>Instant</option>
+			<option value='Land'>Land</option>
+			<option value='Phenomenon'>Phenomenon</option>
+			<option value='Plane'>Plane</option>
+			<option value='Planeswalker'>Planeswalker</option>
+			<option value='Scheme'>Scheme</option>
+			<option value='Sorcery'>Sorcery</option>
+			<option value='Tribal'>Tribal</option>
+			<option value='Vanguard'>Vanguard</option>
+		</select>
+
+		<label for="keywords">Keywords:</label>
+		<select name="keywords" id="keywords">
+			<option value=""></option>
+			<option value='Adamant'>Adamant</option>
+			<option value='Adapt'>Adapt</option>
+			<option value='Addendum'>Addendum</option>
+			<option value='Affinity'>Affinity</option>
+			<option value='Afflict'>Afflict</option>
+			<option value='Afterlife'>Afterlife</option>
+			<option value='Aftermath'>Aftermath</option>
+			<option value='Amass'>Amass</option>
+			<option value='Amplify'>Amplify</option>
+			<option value='Annihilator'>Annihilator</option>
+			<option value='Ascend'>Ascend</option>
+			<option value='Assemble'>Assemble</option>
+			<option value='Assist'>Assist</option>
+			<option value='Augment'>Augment</option>
+			<option value='Aura Swap'>AuraSwa</option>
+			<option value='Awaken'>Awaken</option>
+			<option value='Banding'>Banding</option>
+			<option value='Basic landcycling'>Basicland cycling</option>
+			<option value='Battalion'>Battalion</option>
+			<option value='Battle Cry'>BattleCry</option>
+			<option value='Bestow'>Bestow</option>
+			<option value='Bloodrush'>Bloodrush</option>
+			<option value='Bloodthirst'>Bloodthirst</option>
+			<option value='Boast'>Boast</option>
+			<option value='Bolster'>Bolster</option>
+			<option value='Bushido'>Bushido</option>
+			<option value='Buyback'>Buyback</option>
+			<option value='Cascade'>Cascade</option>
+			<option value='Champion'>Champion</option>
+			<option value='Changeling'>Changeling</option>
+			<option value='Channel'>Channel</option>
+			<option value='Chroma'>Chroma</option>
+			<option value='Cipher'>Cipher</option>
+			<option value='Clash'>Clash</option>
+			<option value='Cohort'>Cohort</option>
+			<option value='Commander ninjutsu'>Commander ninjutsu</option>
+			<option value='Companion'>Companion</option>
+			<option value='Conspire'>Conspire</option>
+			<option value='Constellation'>Constellation</option>
+			<option value='Converge'>Converge</option>
+			<option value='Convoke'>Convoke</option>
+			<option value="Council's dilemma">Council's Dilemma</option>
+			<option value='Crew'>Crew</option>
+			<option value='Cumulative upkeep'>Cumulative upkeep</option>
+			<option value='Cycling'>Cycling</option>
+			<option value='Dash'>Dash</option>
+			<option value='Deathtouch'>Deathtouch</option>
+			<option value='Defender'>Defender</option>
+			<option value='Delirium'>Delirium</option>
+			<option value='Delve'>Delve</option>
+			<option value='Desertwalk'>Desertwalk</option>
+			<option value='Detain'>Detain</option>
+			<option value='Dethrone'>Dethrone</option>
+			<option value='Devoid'>Devoid</option>
+			<option value='Devour'>Devour</option>
+			<option value='Domain'>Domain</option>
+			<option value='Double strike'>Double strike</option>
+			<option value='Dredge'>Dredge</option>
+			<option value='Echo'>Echo</option>
+			<option value='Embalm'>Embalm</option>
+			<option value='Emerge'>Emerge</option>
+			<option value='Eminence'>Eminence</option>
+			<option value='Enchant'>Enchant</option>
+			<option value='Enrage'>Enrage</option>
+			<option value='Entwine'>Entwine</option>
+			<option value='Epic'>Epic</option>
+			<option value='Equip'>Equip</option>
+			<option value='Escalate'>Escalate</option>
+			<option value='Escape'>Escape</option>
+			<option value='Eternalize'>Eternalize</option>
+			<option value='Evoke'>Evoke</option>
+			<option value='Evolve'>Evolve</option>
+			<option value='Exalted'>Exalted</option>
+			<option value='Exert'>Exert</option>
+			<option value='Exploit'>Exploit</option>
+			<option value='Explore'>Explore</option>
+			<option value='Extort'>Extort</option>
+			<option value='Fabricate'>Fabricate</option>
+			<option value='Fading'>Fading</option>
+			<option value='Fateful hour'>Fatefulhou</option>
+			<option value='Fateseal'>Fateseal</option>
+			<option value='Fear'>Fear</option>
+			<option value='Ferocious'>Ferocious</option>
+			<option value='Fight'>Fight</option>
+			<option value='First strike'>Firststrik</option>
+			<option value='Flanking'>Flanking</option>
+			<option value='Flash'>Flash</option>
+			<option value='Flashback'>Flashback</option>
+			<option value='Flying'>Flying</option>
+			<option value='Forecast'>Forecast</option>
+			<option value='Forestcycling'>Forestcycling</option>
+			<option value='Forestwalk'>Forestwalk</option>
+			<option value='Foretell'>Foretell</option>
+			<option value='Formidable'>Formidable</option>
+			<option value='Fortify'>Fortify</option>
+			<option value='Fuse'>Fuse</option>
+			<option value='Goad'>Goad</option>
+			<option value='Graft'>Graft</option>
+			<option value='Grandeur'>Grandeur</option>
+			<option value='Gravestorm'>Gravestorm</option>
+			<option value='Haste'>Haste</option>
+			<option value='Haunt'>Haunt</option>
+			<option value='Hellbent'>Hellbent</option>
+			<option value="Hero's Reward">Hero's Reward</option>
+			<option value='Heroic'>Heroic</option>
+			<option value='Hexproof'>Hexproof</option>
+			<option value='Hexproof from'>Hexproof from</option>
+			<option value='Hidden agenda'>Hiddenagend</option>
+			<option value='Hideaway'>Hideaway</option>
+			<option value='Horsemanship'>Horsemanship</option>
+			<option value='Imprint'>Imprint</option>
+			<option value='Improvise'>Improvise</option>
+			<option value='Indestructible'>Indestructible</option>
+			<option value='Infect'>Infect</option>
+			<option value='Ingest'>Ingest</option>
+			<option value='Inspired'>Inspired</option>
+			<option value='Intimidate'>Intimidate</option>
+			<option value='Investigate'>Investigate</option>
+			<option value='Islandcycling'>Islandcycling</option>
+			<option value='Islandwalk'>Islandwalk</option>
+			<option value='Join forces'>Joinforce</option>
+			<option value='Jump-start'>Jumpstar</option>
+			<option value='Kicker'>Kicker</option>
+			<option value='Kinfall'>Kinfall</option>
+			<option value='Kinship'>Kinship</option>
+			<option value='Landcycling'>Landcycling</option>
+			<option value='Landfall'>Landfall</option>
+			<option value='Landship'>Landship</option>
+			<option value='Landwalk'>Landwalk</option>
+			<option value='Legacy'>Legacy</option>
+			<option value='Legendary landwalk'>Legendary landwalk</option>
+			<option value='Level Up'>Level Up</option>
+			<option value='Lieutenant'>Lieutenant</option>
+			<option value='Lifelink'>Lifelink</option>
+			<option value='Living weapon'>Living weapon</option>
+			<option value='Madness'>Madness</option>
+			<option value='Manifest'>Manifest</option>
+			<option value='Megamorph'>Megamorph</option>
+			<option value='Meld'>Meld</option>
+			<option value='Melee'>Melee</option>
+			<option value='Menace'>Menace</option>
+			<option value='Mentor'>Mentor</option>
+			<option value='Metalcraft'>Metalcraft</option>
+			<option value='Mill'>Mill</option>
+			<option value='Miracle'>Miracle</option>
+			<option value='Modular'>Modular</option>
+			<option value='Monstrosity'>Monstrosity</option>
+			<option value='Morbid'>Morbid</option>
+			<option value='Morph'>Morph</option>
+			<option value='Mountaincycling'>Mountaincycling</option>
+			<option value='Mountainwalk'>Mountainwalk</option>
+			<option value='Multikicker'>Multikicker</option>
+			<option value='Mutate'>Mutate</option>
+			<option value='Myriad'>Myriad</option>
+			<option value='Ninjutsu'>Ninjutsu</option>
+			<option value='Nonbasic landwalk'>Nonbasic landwalk</option>
+			<option value='Outlast'>Outlast</option>
+			<option value='Overload'>Overload</option>
+			<option value='Parley'>Parley</option>
+			<option value='Partner'>Partner</option>
+			<option value='Partner with'>Partnerwit</option>
+			<option value='Persist'>Persist</option>
+			<option value='Phasing'>Phasing</option>
+			<option value='Plainscycling'>Plainscycling</option>
+			<option value='Plainswalk'>Plainswalk</option>
+			<option value='Populate'>Populate</option>
+			<option value='Proliferate'>Proliferate</option>
+			<option value='Protection'>Protection</option>
+			<option value='Provoke'>Provoke</option>
+			<option value='Prowess'>Prowess</option>
+			<option value='Prowl'>Prowl</option>
+			<option value='Radiance'>Radiance</option>
+			<option value='Raid'>Raid</option>
+			<option value='Rally'>Rally</option>
+			<option value='Rampage'>Rampage</option>
+			<option value='Reach'>Reach</option>
+			<option value='Rebound'>Rebound</option>
+			<option value='Recover'>Recover</option>
+			<option value='Reinforce'>Reinforce</option>
+			<option value='Renown'>Renown</option>
+			<option value='Replicate'>Replicate</option>
+			<option value='Retrace'>Retrace</option>
+			<option value='Revolt'>Revolt</option>
+			<option value='Riot'>Riot</option>
+			<option value='Ripple'>Ripple</option>
+			<option value='Scavenge'>Scavenge</option>
+			<option value='Scry'>Scry</option>
+			<option value='Shadow'>Shadow</option>
+			<option value='Shroud'>Shroud</option>
+			<option value='Skulk'>Skulk</option>
+			<option value='Slivercycling'>Slivercycling</option>
+			<option value='Soulbond'>Soulbond</option>
+			<option value='Soulshift'>Soulshift</option>
+			<option value='Spectacle'>Spectacle</option>
+			<option value='Spell mastery'>Spellmaster</option>
+			<option value='Splice'>Splice</option>
+			<option value='Split second'>Splitsecon</option>
+			<option value='Storm'>Storm</option>
+			<option value='Strive'>Strive</option>
+			<option value='Sunburst'>Sunburst</option>
+			<option value='Support'>Support</option>
+			<option value='Surge'>Surge</option>
+			<option value='Surveil'>Surveil</option>
+			<option value='Suspend'>Suspend</option>
+			<option value='Swampcycling'>Swampcycling</option>
+			<option value='Swampwalk'>Swampwalk</option>
+			<option value='Sweep'>Sweep</option>
+			<option value='Tempting offer'>Tempting offer</option>
+			<option value='Threshold'>Threshold</option>
+			<option value='Totem armor'>Totemarmo</option>
+			<option value='Trample'>Trample</option>
+			<option value='Transfigure'>Transfigure</option>
+			<option value='Transform'>Transform</option>
+			<option value='Transmute'>Transmute</option>
+			<option value='Tribute'>Tribute</option>
+			<option value='Typecycling'>Typecycling</option>
+			<option value='Undaunted'>Undaunted</option>
+			<option value='Underdog'>Underdog</option>
+			<option value='Undergrowth'>Undergrowth</option>
+			<option value='Undying'>Undying</option>
+			<option value='Unearth'>Unearth</option>
+			<option value='Unleash'>Unleash</option>
+			<option value='Vanishing'>Vanishing</option>
+			<option value='Vigilance'>Vigilance</option>
+			<option value='Will of the council'>Will of the council</option>
+			<option value='Wither'>Wither</option>
+			<option value='Wizardcycling'>Wizardcycling</option>
+		</select>
+		<label for="cmc_operator">Converted Mana Cost:</label>
+		<select name="cmc_operator">
+			<option value='less_than'><</option>
+			<option value='greater_than'>></option>
+			<option value='equal_to'>=</option>
+			<option value='less_than_equal_to'><=</option>
+			<option value='greater_than_equal_to'>>=</option>
+		</select>
+		<input type='text' name='cmc'>
+		<button type='submit'>Search</button>
+	</form>
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<a href="/">Homepage</a>
+	<h1>Welcome {{request.session.email}}</h1>
+	{%if request.session.email%}
+		<a href="/decks">Decks</a>
+		<a href="/logout">Logout</a>
+	{% else %}
+		<a href="/login">Login</a>
+	{% endif%}
+	<p>	Name:{{card.name}}</p>
+	<img src={{card.img_large_url}}>
+	{%if request.session.userid%}
+
+		<form action='/add_card/{{card.id}}' method='post'>
+			{% csrf_token %}
+			<select name='user_decks'>
+				{%for deck in decks%}
+					<option value="{{deck.id}}">{{deck.name}}</option>
+				{% endfor %}
+			</select>
+			<button type='submit'>Add Card To Deck</button>
+		</form>
+	{%endif%}
+</body>
+</html>
