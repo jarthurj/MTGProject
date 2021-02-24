@@ -120,3 +120,9 @@ def add_card_to_deck(request,cardid):
 def add_deck(request):
 	new_deck = Deck.objects.create(name=request.POST['new_deck'], user=User.objects.get(id=request.session['userid']))
 	return redirect("/decks")
+
+def process_registration(request):
+	new_user = User.objects.create(email=request.POST['email'], password=request.POST['password'])
+	request.session['userid'] = new_user.id
+	request.session['email'] = new_user.email
+	return redirect('/')

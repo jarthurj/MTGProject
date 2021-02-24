@@ -9,5 +9,7 @@ urlpatterns = [
 	path('logout',views.logout),
 	path('decks', views.load_user_decks_page),
 	path('deck/<int:deckid>', views.load_single_deck),
-	path('new_deck', views.add_deck)
+	path('new_deck', views.add_deck),
+	path('registration', views.process_registration),
+	path('add_card/<int:cardid>', views.add_card_to_deck)
 ]
